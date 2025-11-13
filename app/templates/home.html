@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>OIDC Demo</title>
+        <style>
+            body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif; margin: 2rem; }
+            .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem 1.5rem; max-width: 700px; }
+            .btn { display: inline-block; padding: .5rem 1rem; border: 1px solid #333; border-radius: 8px; text-decoration: none; }
+            .muted { color: #666; }
+            code { background: #f6f6f6; padding: .2rem .4rem; border-radius: 4px; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+        <h1>Démo OIDC (FastAPI + Keycloak)</h1>
+        {% if user %}
+        <p>Connecté en tant que <strong>{{ user.name or user.email }}</strong></p>
+        <p>
+        <a class="btn" href="/protected">Voir le jeton</a>
+        <a class="btn" href="/logout">Se déconnecter</a>
+        </p>
+        <p class="muted">Testez aussi l'API protégée : <code>GET /api/resource</code> avec un en‑tête <code>Authorization: Bearer &lt;access_token&gt;</code> récupéré depuis <a href="/protected">/protected</a>.</p>
+        {% else %}
+        <p>Vous n'êtes pas connecté.</p>
+        <p><a class="btn" href="/login">Se connecter via OIDC</a></p>
+        {% endif %}
+        </div>
+    </body>
+</html>
