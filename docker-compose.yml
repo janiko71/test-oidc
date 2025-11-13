@@ -1,5 +1,20 @@
 version: "3.8"
 services:
+    postgres:
+        image: postgres:16-alpine
+        environment:
+            POSTGRES_DB: keycloak
+            POSTGRES_USER: keycloak
+            POSTGRES_PASSWORD: keycloak_password
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U keycloak"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
     keycloak:
         image: quay.io/keycloak/keycloak:26.0
         command: 
@@ -13,6 +28,17 @@ services:
             KC_HTTP_HOST: 0.0.0.0
             KC_HOSTNAME_STRICT: "false"
             KC_HTTP_RELATIVE_PATH: "/"
+            KC_DB: postgres
+            KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+            KC_DB_USERNAME: keycloak
+            KC_DB_PASSWORD: keycloak_password
         ports:
             - "8080:8080"
+        depends_on:
+            postgres:
+                condition: service_healthy
         restart: unless-stopped
+
+volumes:
+    postgres_data:
+        driver: local
