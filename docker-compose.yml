@@ -2,10 +2,17 @@ version: "3.8"
 services:
     keycloak:
         image: quay.io/keycloak/keycloak:26.0
-        command: ["start-dev", "--http-port=8080"]
+        command: 
+            - "start-dev"
+            - "--http-port=8080"
+            - "--hostname-strict=false"
+            - "--proxy-headers=xforwarded"
         environment:
             KEYCLOAK_ADMIN: admin
             KEYCLOAK_ADMIN_PASSWORD: admin
+            KC_HTTP_HOST: 0.0.0.0
+            KC_HOSTNAME_STRICT: "false"
+            KC_HTTP_RELATIVE_PATH: "/"
         ports:
             - "8080:8080"
         restart: unless-stopped
