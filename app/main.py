@@ -138,12 +138,15 @@ async def protected(request: Request):
     if not user:
         return RedirectResponse("/login")
 
-    return JSONResponse({
+    return JSONResponse(
+    content={
         "message": "Vous êtes authentifié via OIDC",
         "user": user,
         "note": "Le token n'est pas stocké en session pour éviter un cookie trop gros.",
-        "api_hint": "Appelez /api/resource avec Authorization: Bearer <access_token> que vous aurez récupéré au moment du callback."
-    })
+        "api_hint": "Appelez /api/resource avec Authorization: Bearer <access_token> que vous aurez récupéré au moment du callback.",
+    },
+    media_type="application/json; charset=utf-8",
+)
 
 
 
