@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>OIDC Demo – Profil utilisateur</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="card">
+
+        <!-- En-tête : titre + sous-titre -->
+        <div class="card-header">
+          <div>
+            <h1 class="card-title">Profil utilisateur OIDC</h1>
+            <p class="card-subtitle">
+              Claims décodés depuis l’access token émis par Keycloak.
+            </p>
+          </div>
+        </div>
+
+        <!-- Boutons sous le sous-titre -->
+        <div class="top-links" style="margin: 0.4rem 0 1.1rem 0; justify-content: flex-start;">
+          <a class="btn btn-secondary" href="/">Accueil</a>
+          <a class="btn btn-secondary" href="/protected">Vue JSON</a>
+          <a class="btn btn-ghost" href="/logout">Se déconnecter</a>
+        </div>
+
+        <!-- Statut utilisateur -->
+        <div class="status-row">
+          <span class="badge">Connecté</span>
+          <span class="muted">
+            Connecté en tant que <strong>{{ user.name or user.email }}</strong>.
+          </span>
+        </div>
+
+        <!-- Identité -->
+        <div class="section">
+          <h2 class="section-title">Identité</h2>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>Nom affiché</th>
+                <td>{{ user.name or user.email }}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+              </tr>
+              <tr>
+                <th>Subject (sub)</th>
+                <td><code>{{ user.sub }}</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Claims principaux -->
+        <div class="section">
+          <h2 class="section-title">Claims OIDC principaux</h2>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>preferred_username</th>
+                <td>{{ claims.preferred_username }}</td>
+              </tr>
+              <tr>
+                <th>given_name</th>
+                <td>{{ claims.given_name }}</td>
+              </tr>
+              <tr>
+                <th>family_name</th>
+                <td>{{ claims.family_name }}</td>
+              </tr>
+              <tr>
+                <th>email</th>
+                <td>{{ claims.email }}</td>
+              </tr>
+              <tr>
+                <th>email_verified</th>
+                <td>{{ claims.email_verified }}</td>
+              </tr>
+              <tr>
+                <th>scope</th>
+                <td><code>{{ claims.scope }}</code></td>
+              </tr>
+              <tr>
+                <th>issued_at (iat)</th>
+                <td>{{ claims.iat }}</td>
+              </tr>
+              <tr>
+                <th>expires_at (exp)</th>
+                <td>{{ claims.exp }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Infos techniques -->
+        <div class="section">
+          <h2 class="section-title">Informations techniques du token</h2>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>iss</th>
+                <td><code>{{ claims.iss }}</code></td>
+              </tr>
+              <tr>
+                <th>aud</th>
+                <td><code>{{ claims.aud }}</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="muted mt-1">
+            Ces champs permettent à l’API de vérifier que le token vient du bon realm et est destiné
+            au bon client / audience.
+          </p>
+        </div>
+
+        <!-- Rôles de realm -->
+        <div class="section">
+          <h2 class="section-title">Rôles de realm</h2>
+          {% if claims.realm_roles %}
+            <ul class="roles-list">
+              {% for r in claims.realm_roles %}
+                <li><code>{{ r }}</code></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="muted"><em>Aucun rôle de realm transmis dans ce token.</em></p>
+          {% endif %}
+        </div>
+
+        <!-- Resource access -->
+        <div class="section">
+          <h2 class="section-title">Access par ressource (resource_access)</h2>
+          {% if claims.resource_access %}
+            {% for client, data in claims.resource_access.items() %}
+              <p class="mb-0">
+                <strong>Client :</strong> <code>{{ client }}</code>
+              </p>
+              {% if data.roles %}
+                <ul class="roles-list">
+                  {% for r in data.roles %}
+                    <li><code>{{ r }}</code></li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="muted"><em>Aucun rôle pour ce client.</em></p>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <p class="muted"><em>Aucun resource_access trouvé dans ce token.</em></p>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

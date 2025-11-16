@@ -1,0 +1,239 @@
+/* --- Variables et base --- */
+
+:root {
+    /* Palette "corporate" bleu/gris */
+    --bg: #f4f6fb;
+    --card-bg: #ffffff;
+    --border: #d0d7e2;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+
+    --radius-card: 10px;
+    --radius-pill: 999px;
+
+    --font-base: 15px;
+    --font-small: 13px;
+    --font-code: 13px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at top, #e0e7ff 0, #f4f6fb 45%, #edf1f7 100%);
+    color: var(--text-main);
+    font-size: var(--font-base);
+}
+
+/* --- Layout avec carte centrale --- */
+
+.page-shell {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2.5rem 1.5rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(208, 215, 226, 0.9);
+    box-shadow: var(--shadow-soft);
+    padding: 1.6rem 2rem 1.5rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+/* --- Header de la carte --- */
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 .3rem 0;
+    color: #111827;
+}
+
+.card-subtitle {
+    margin: 0;
+    font-size: var(--font-small);
+    color: var(--text-muted);
+}
+
+/* --- Bandeau de liens en haut à droite --- */
+
+.top-links {
+    display: flex;
+    gap: .4rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* --- Boutons --- */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .38rem .9rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, transform .05s ease, box-shadow .15s ease;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: #f9fafb;
+    border-color: var(--accent);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-dark);
+    border-color: var(--accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(37, 99, 235, 0.45);
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #111827;
+    border-color: #d1d5db;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: transparent;
+}
+
+.btn-ghost:hover {
+    background: rgba(148, 163, 184, 0.15);
+}
+
+/* --- Texte --- */
+
+.muted {
+    color: var(--text-muted);
+    font-size: var(--font-small);
+}
+
+code {
+    background: #111827;
+    color: #e5e7eb;
+    padding: .15rem .4rem;
+    border-radius: 4px;
+    font-size: var(--font-code);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* --- Sections internes --- */
+
+.section {
+    margin-top: 1.4rem;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 .5rem 0;
+}
+
+/* --- Ligne de statut (badge + texte) --- */
+
+.status-row {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    margin-top: .2rem;
+    margin-bottom: .8rem;
+}
+
+/* --- Badge de statut --- */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: .18rem .7rem;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* --- Tableaux (profil) --- */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: .5rem;
+    font-size: 14px;
+}
+
+.table th,
+.table td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: .4rem .6rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+    width: 26%;
+}
+
+.table tr:hover td {
+    background: #f3f4ff;
+}
+
+/* --- Listes de rôles --- */
+
+.roles-list {
+    margin: .25rem 0;
+    padding-left: 1.1rem;
+}
+
+.roles-list li {
+    margin: .05rem 0;
+    font-size: 14px;
+}
+
+.roles-list code {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* --- Helpers margin --- */
+
+.mt-1 { margin-top: .5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-0 { margin-bottom: 0; }
