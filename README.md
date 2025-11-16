@@ -1,6 +1,6 @@
 # test-oidc
 
-Lab de découverte d'OIDC dans Codespaces (github). 
+Lab de découverte d'OIDC dans Codespaces (github). Documentation plus complèt en cours d'élaboration.
 
 L'objectif de ce petit lab est uniquement de comprendre le fonctionnement et les mécanismes de sécurité d'OIDC, et n'est absolument pas destiné à la production, puisqu'il affiche en clair des informations importantes.
 
